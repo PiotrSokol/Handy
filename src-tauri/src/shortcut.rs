@@ -1,5 +1,6 @@
 use serde::Serialize;
 use tauri::{App, AppHandle, Manager};
+use tauri_plugin_autostart::ManagerExt as _;
 use tauri_plugin_global_shortcut::GlobalShortcutExt;
 use tauri_plugin_global_shortcut::{Shortcut, ShortcutState};
 
@@ -168,6 +169,22 @@ pub fn change_start_minimized_setting(app: AppHandle, enabled: bool) -> Result<(
     let mut settings = settings::get_settings(&app);
     settings.start_minimized = enabled;
     settings::write_settings(&app, settings);
+    Ok(())
+}
+
+#[tauri::command]
+pub fn change_autostart_setting(app: AppHandle, enabled: bool) -> Result<(), String> {
+    let mut settings = settings::get_settings(&app);
+    settings.autostart_enabled = enabled;
+    settings::write_settings(&app, settings);
+
+    let autostart_manager = app.autolaunch();
+    if enabled {
+        autostart_manager.enable().map_err(|e| e.to_string())?;
+    } else {
+        autostart_manager.disable().map_err(|e| e.to_string())?;
+    }
+
     Ok(())
 }
 

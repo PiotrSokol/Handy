@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { MicrophoneSelector } from "./MicrophoneSelector";
 import { AlwaysOnMicrophone } from "./AlwaysOnMicrophone";
 import { PushToTalk } from "./PushToTalk";
@@ -13,10 +13,18 @@ import { SettingsGroup } from "../ui/SettingsGroup";
 import { WordCorrectionThreshold } from "./debug/WordCorrectionThreshold";
 import { AppDataDirectory } from "./AppDataDirectory";
 import { StartMinimized } from "./StartMinimized";
+import { Autostart } from "./Autostart";
 import { useSettings } from "../../hooks/useSettings";
 
 export const Settings: React.FC = () => {
   const { settings, updateSetting } = useSettings();
+  const [isDesktop, setIsDesktop] = useState(true);
+
+  useEffect(() => {
+    // Determine if running in Tauri (desktop). In web preview, this is undefined.
+    const isTauri = typeof (window as any).__TAURI__ !== "undefined";
+    setIsDesktop(isTauri);
+  }, []);
 
   // Handle keyboard shortcuts for debug mode toggle
   useEffect(() => {
@@ -46,7 +54,15 @@ export const Settings: React.FC = () => {
   return (
     <div className="max-w-3xl w-full mx-auto space-y-6">
       <SettingsGroup>
-        <HandyShortcut descriptionMode="tooltip" grouped={true} />
+        {isDesktop && (
+          <HandyShortcut descriptionMode="tooltip" grouped={true} />
+        )}
+        {isDesktop && (
+          <>
+            <Autostart descriptionMode="tooltip" grouped={true} />
+            <StartMinimized descriptionMode="tooltip" grouped={true} />
+          </>
+        )}
         <MicrophoneSelector descriptionMode="tooltip" grouped={true} />
         <LanguageSelector descriptionMode="tooltip" grouped={true} />
       </SettingsGroup>
@@ -54,7 +70,6 @@ export const Settings: React.FC = () => {
       <SettingsGroup title="Advanced">
         <PushToTalk descriptionMode="tooltip" grouped={true} />
         <AudioFeedback descriptionMode="tooltip" grouped={true} />
-        <StartMinimized descriptionMode="tooltip" grouped={true} />
         <OutputDeviceSelector descriptionMode="tooltip" grouped={true} />
         <ShowOverlay descriptionMode="tooltip" grouped={true} />
         <TranslateToEnglish descriptionMode="tooltip" grouped={true} />

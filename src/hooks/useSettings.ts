@@ -175,6 +175,9 @@ export const useSettings = (): UseSettingsReturn => {
           case "start_minimized":
             await invoke("change_start_minimized_setting", { enabled: value });
             break;
+          case "autostart_enabled":
+            await invoke("change_autostart_setting", { enabled: value });
+            break;
           case "push_to_talk":
             await invoke("change_ptt_setting", { enabled: value });
             break;

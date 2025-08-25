@@ -28,6 +28,8 @@ pub struct AppSettings {
     pub audio_feedback: bool,
     #[serde(default = "default_start_minimized")]
     pub start_minimized: bool,
+    #[serde(default = "default_autostart_enabled")]
+    pub autostart_enabled: bool,
     #[serde(default = "default_model")]
     pub selected_model: String,
     #[serde(default = "default_always_on_microphone")]
@@ -59,6 +61,10 @@ fn default_always_on_microphone() -> bool {
 }
 
 fn default_start_minimized() -> bool {
+    false
+}
+
+fn default_autostart_enabled() -> bool {
     false
 }
 
@@ -111,6 +117,7 @@ pub fn get_default_settings() -> AppSettings {
         push_to_talk: true,
         audio_feedback: false,
         start_minimized: false,
+        autostart_enabled: false,
         selected_model: "".to_string(),
         always_on_microphone: false,
         selected_microphone: None,

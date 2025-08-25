@@ -78,16 +78,15 @@ pub fn run() {
         .plugin(tauri_plugin_global_shortcut::Builder::new().build())
         .plugin(tauri_plugin_autostart::init(
             MacosLauncher::LaunchAgent,
-            Some(vec!["--hidden".into()]),
+            None,
         ))
         .manage(Mutex::new(ShortcutToggleStates::default()))
         .setup(move |app| {
-            // Determine desired startup visibility
-            let start_minimized = {
+            // Determine desired startup visibility and autostart state
+            let (start_hidden, autostart_enabled) = {
                 let s = settings::get_settings(&app.handle());
-                s.start_minimized
+                (s.start_minimized, s.autostart_enabled)
             };
-            let start_hidden = start_minimized;
 
             // Get the current theme to set the appropriate initial icon
             let initial_theme = if let Some(main_window) = app.get_webview_window("main") {
@@ -148,10 +147,13 @@ pub fn run() {
                 }
             }
 
-            // Get the autostart manager
+            // Apply autostart setting from user preferences
             let autostart_manager = app.autolaunch();
-            // Enable autostart
-            let _ = autostart_manager.enable();
+            if autostart_enabled {
+                let _ = autostart_manager.enable();
+            } else {
+                let _ = autostart_manager.disable();
+            }
 
             let recording_manager = Arc::new(
                 AudioRecordingManager::new(app).expect("Failed to initialize recording manager"),
@@ -202,6 +204,7 @@ pub fn run() {
             shortcut::change_ptt_setting,
             shortcut::change_audio_feedback_setting,
             shortcut::change_start_minimized_setting,
+            shortcut::change_autostart_setting,
             shortcut::change_translate_to_english_setting,
             shortcut::change_selected_language_setting,
             shortcut::change_overlay_position_setting,
