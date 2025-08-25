@@ -26,6 +26,8 @@ pub struct AppSettings {
     pub bindings: HashMap<String, ShortcutBinding>,
     pub push_to_talk: bool,
     pub audio_feedback: bool,
+    #[serde(default = "default_start_minimized")]
+    pub start_minimized: bool,
     #[serde(default = "default_model")]
     pub selected_model: String,
     #[serde(default = "default_always_on_microphone")]
@@ -53,6 +55,10 @@ fn default_model() -> String {
 }
 
 fn default_always_on_microphone() -> bool {
+    false
+}
+
+fn default_start_minimized() -> bool {
     false
 }
 
@@ -104,6 +110,7 @@ pub fn get_default_settings() -> AppSettings {
         bindings,
         push_to_talk: true,
         audio_feedback: false,
+        start_minimized: false,
         selected_model: "".to_string(),
         always_on_microphone: false,
         selected_microphone: None,

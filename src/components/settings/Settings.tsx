@@ -12,6 +12,7 @@ import { CustomWords } from "./CustomWords";
 import { SettingsGroup } from "../ui/SettingsGroup";
 import { WordCorrectionThreshold } from "./debug/WordCorrectionThreshold";
 import { AppDataDirectory } from "./AppDataDirectory";
+import { StartMinimized } from "./StartMinimized";
 import { useSettings } from "../../hooks/useSettings";
 
 export const Settings: React.FC = () => {
@@ -53,6 +54,7 @@ export const Settings: React.FC = () => {
       <SettingsGroup title="Advanced">
         <PushToTalk descriptionMode="tooltip" grouped={true} />
         <AudioFeedback descriptionMode="tooltip" grouped={true} />
+        <StartMinimized descriptionMode="tooltip" grouped={true} />
         <OutputDeviceSelector descriptionMode="tooltip" grouped={true} />
         <ShowOverlay descriptionMode="tooltip" grouped={true} />
         <TranslateToEnglish descriptionMode="tooltip" grouped={true} />

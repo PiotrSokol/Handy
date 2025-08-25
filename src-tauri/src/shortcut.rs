@@ -164,6 +164,14 @@ pub fn change_debug_mode_setting(app: AppHandle, enabled: bool) -> Result<(), St
 }
 
 #[tauri::command]
+pub fn change_start_minimized_setting(app: AppHandle, enabled: bool) -> Result<(), String> {
+    let mut settings = settings::get_settings(&app);
+    settings.start_minimized = enabled;
+    settings::write_settings(&app, settings);
+    Ok(())
+}
+
+#[tauri::command]
 pub fn update_custom_words(app: AppHandle, words: Vec<String>) -> Result<(), String> {
     let mut settings = settings::get_settings(&app);
     settings.custom_words = words;

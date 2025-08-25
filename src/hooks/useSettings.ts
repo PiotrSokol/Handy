@@ -172,6 +172,9 @@ export const useSettings = (): UseSettingsReturn => {
           case "audio_feedback":
             await invoke("change_audio_feedback_setting", { enabled: value });
             break;
+          case "start_minimized":
+            await invoke("change_start_minimized_setting", { enabled: value });
+            break;
           case "push_to_talk":
             await invoke("change_ptt_setting", { enabled: value });
             break;
@@ -254,6 +257,7 @@ export const useSettings = (): UseSettingsReturn => {
       const defaults: Partial<Settings> = {
         always_on_microphone: false,
         audio_feedback: true,
+        start_minimized: false,
         push_to_talk: false,
         selected_microphone: "Default",
         selected_output_device: "Default",

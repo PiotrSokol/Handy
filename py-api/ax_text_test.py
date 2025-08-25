@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # macOS only. Requires: pip install pyobjc-framework-Quartz pyobjc-framework-Accessibility
-
+# Let's see if this worksOh, wow is it always flickering like this
 import sys
 import time
 from typing import Optional, Tuple

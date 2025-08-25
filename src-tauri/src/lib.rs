@@ -78,10 +78,17 @@ pub fn run() {
         .plugin(tauri_plugin_global_shortcut::Builder::new().build())
         .plugin(tauri_plugin_autostart::init(
             MacosLauncher::LaunchAgent,
-            Some(vec![]),
+            Some(vec!["--hidden".into()]),
         ))
         .manage(Mutex::new(ShortcutToggleStates::default()))
         .setup(move |app| {
+            // Determine desired startup visibility
+            let start_minimized = {
+                let s = settings::get_settings(&app.handle());
+                s.start_minimized
+            };
+            let start_hidden = start_minimized;
+
             // Get the current theme to set the appropriate initial icon
             let initial_theme = if let Some(main_window) = app.get_webview_window("main") {
                 main_window.theme().unwrap_or(tauri::Theme::Dark)
@@ -129,6 +136,17 @@ pub fn run() {
 
             // Initialize tray menu with idle state
             utils::update_tray_menu(&app.handle(), &utils::TrayIconState::Idle);
+
+            // Hide main window at startup if requested (flag or setting)
+            if start_hidden {
+                if let Some(main_window) = app.get_webview_window("main") {
+                    let _ = main_window.hide();
+                }
+                #[cfg(target_os = "macos")]
+                {
+                    let _ = app.set_activation_policy(tauri::ActivationPolicy::Accessory);
+                }
+            }
 
             // Get the autostart manager
             let autostart_manager = app.autolaunch();
@@ -183,6 +201,7 @@ pub fn run() {
             shortcut::reset_binding,
             shortcut::change_ptt_setting,
             shortcut::change_audio_feedback_setting,
+            shortcut::change_start_minimized_setting,
             shortcut::change_translate_to_english_setting,
             shortcut::change_selected_language_setting,
             shortcut::change_overlay_position_setting,
