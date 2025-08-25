@@ -26,3 +26,6 @@ dist-ssr
 /target/
 recording_*
 .crush/
+
+# lsmcp cache
+.lsmcp/cache
