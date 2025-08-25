@@ -1,7 +1,7 @@
 {
   "name": "handy-app",
   "private": true,
-  "version": "0.3.8",
+  "version": "0.3.9",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,33 +10,33 @@
     "tauri": "tauri"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.0.2",
-    "@tauri-apps/api": "^2.6.0",
-    "@tauri-apps/plugin-autostart": "~2",
-    "@tauri-apps/plugin-clipboard-manager": "~2",
-    "@tauri-apps/plugin-fs": "~2",
-    "@tauri-apps/plugin-global-shortcut": "~2",
-    "@tauri-apps/plugin-opener": "^2",
-    "@tauri-apps/plugin-os": "~2",
-    "@tauri-apps/plugin-process": "~2",
-    "@tauri-apps/plugin-store": "~2",
-    "@tauri-apps/plugin-stronghold": "~2",
-    "@tauri-apps/plugin-updater": "~2",
-    "@tauri-apps/plugin-upload": "~2",
+    "@tailwindcss/vite": "^4.1.12",
+    "@tauri-apps/api": "^2.8.0",
+    "@tauri-apps/plugin-autostart": "~2.5.0",
+    "@tauri-apps/plugin-clipboard-manager": "~2.3.0",
+    "@tauri-apps/plugin-fs": "~2.4.2",
+    "@tauri-apps/plugin-global-shortcut": "~2.3.0",
+    "@tauri-apps/plugin-opener": "^2.5.0",
+    "@tauri-apps/plugin-os": "~2.3.1",
+    "@tauri-apps/plugin-process": "~2.3.0",
+    "@tauri-apps/plugin-store": "~2.4.0",
+    "@tauri-apps/plugin-stronghold": "~2.3.0",
+    "@tauri-apps/plugin-updater": "~2.9.0",
+    "@tauri-apps/plugin-upload": "~2.3.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "sonner": "^2.0.7",
-    "tailwindcss": "^4.0.2",
-    "tauri-plugin-macos-permissions-api": "^2.0.4",
-    "zod": "^3.24.4"
+    "tailwindcss": "^4.1.12",
+    "tauri-plugin-macos-permissions-api": "^2.3.0",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^2",
-    "@types/node": "^24.0.6",
-    "@types/react": "^18.3.1",
-    "@types/react-dom": "^18.3.1",
-    "@vitejs/plugin-react": "^4.3.4",
-    "typescript": "~5.6.2",
-    "vite": "^6.0.3"
+    "@tauri-apps/cli": "^2.8.2",
+    "@types/node": "^24.3.0",
+    "@types/react": "^18.3.24",
+    "@types/react-dom": "^18.3.7",
+    "@vitejs/plugin-react": "^4.7.0",
+    "typescript": "~5.6.3",
+    "vite": "^6.3.5"
   }
 }
